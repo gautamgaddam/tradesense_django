@@ -57,21 +57,25 @@ class HistoricalPrice(models.Model):
     def __str__(self):
         return f"{self.stock.symbol} on {self.date} - Close: {self.close_price}"
 
-class TechnicalIndicatorType(models.Model):
-    name = models.CharField(max_length=50, unique=True)  # e.g., 'RSI', 'MACD'
-    description = models.TextField(null=True, blank=True)  # e.g., 'Relative Strength Index'
-
-    def __str__(self):
-        return self.name
-
-class TechnicalIndicator(models.Model):
+class DailyTechnicalIndicators(models.Model):
     stock = models.ForeignKey(Stock, related_name='technical_indicators', on_delete=models.CASCADE)
-    indicator_type = models.ForeignKey(TechnicalIndicatorType, on_delete=models.CASCADE)
-    date = models.DateField()  # Date for the indicator value
-    value = models.DecimalField(max_digits=20, decimal_places=8)  # Storing the calculated value
+    date = models.DateField()
 
+    # Technical indicators as JSON columns
+    rsi = models.JSONField(null=True, blank=True)
+    macd = models.JSONField(null=True, blank=True)
+    bollinger_bands = models.JSONField(null=True, blank=True)
+    sma = models.JSONField(null=True, blank=True)
+    ema = models.JSONField(null=True, blank=True)
+    stochastic = models.JSONField(null=True, blank=True)
+    atr = models.JSONField(null=True, blank=True)
+    obv = models.JSONField(null=True, blank=True)
+    fibonacci_retracement = models.JSONField(null=True, blank=True)  # To store various levels of Fibonacci retracement
+    ichimoku_cloud = models.JSONField(null=True, blank=True)  # To store different components of the Ichimoku Cloud
+    parabolic_sar = models.JSONField(null=True, blank=True)
+    score = models.IntegerField(null=True, blank=True)
     class Meta:
-        unique_together = ('stock', 'indicator_type', 'date')
+        unique_together = ('stock', 'date')  # Ensure one record per stock per date
 
     def __str__(self):
-        return f"{self.stock.symbol} - {self.indicator_type.name} on {self.date}"
+        return f"{self.stock.symbol} - Indicators on {self.date}"
