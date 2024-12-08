@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+#BOLLINGER BANDS
 def calculate(data, window=20, window_dev=2):
     df = pd.DataFrame(data)
     sma = df['close'].rolling(window=window).mean()

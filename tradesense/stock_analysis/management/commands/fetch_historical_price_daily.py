@@ -14,13 +14,15 @@ class Command(BaseCommand):
 
             try:
                 print(f"Checking for stock: {stock.symbol}")
-                # Fetch yesterday's date
-                today = datetime.now()
-                yesterday = today - timedelta(days=1) # change number of days to get by history 
-
+                # Fetch yesterday's date``
+                tomorrow = datetime.now() + timedelta(days=1)
+                yesterday = tomorrow - timedelta(days=1) # change number of days to get by history 
+                start_date = datetime(2024, 9, 13)
+                end_date = datetime.now()  # end_date should be exclusive
+        
                 # Fetch the daily historical data for the stock
                 ticker = yf.Ticker(stock.symbol + ".BO")
-                hist_data = ticker.history(start=yesterday, end=today)
+                hist_data = ticker.history(start=start_date, end=end_date)
                 # print("history data", hist_data)
                 if hist_data.empty:
                     raise ValueError(f"No historical data found for {stock.symbol}")
@@ -55,8 +57,8 @@ class Command(BaseCommand):
 
         def update_daily_prices():
             # Fetch all stocks related to BSE exchange
-            stocks = Stock.objects.filter(exchange__name="Bombay Stock Exchange")
-
+            stocks = Stock.objects.filter(exchange__name="Bombay Stock Exchange", market_cap_category_id=1)
+            print(f"Total stocks to update: {stocks.count()}")
             with ThreadPoolExecutor(max_workers=10) as executor:
                 future_to_stock = {executor.submit(fetch_and_save_daily_price, stock): stock for stock in stocks}
 

@@ -1,5 +1,5 @@
 import pandas as pd
-
+#MACD
 def calculate(data, short_window=12, long_window=26, signal_window=9):
     """
     Calculates the MACD indicator and includes a bullish/bearish signal.

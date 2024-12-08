@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+#ATR
 def calculate(data, window=14):
     df = pd.DataFrame(data)
     df['high-low'] = df['high'] - df['low']

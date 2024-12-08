@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+#ICHIMOKU
 def calculate(data):
     """
     Calculates Ichimoku Cloud indicator values.

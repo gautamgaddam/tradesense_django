@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+#RSI
 def calculate(data, period=14):
     df = pd.DataFrame(data)
     delta = df['close'].diff()

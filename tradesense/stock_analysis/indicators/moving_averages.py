@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+#Movingaverages
 def calculate_sma(data, window=20):
     df = pd.DataFrame(data)
     sma = df['close'].rolling(window=window).mean()

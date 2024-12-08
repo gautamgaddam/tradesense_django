@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from decimal import Decimal
-
+#Parabolic Sar
 def calculate(data, af_start=0.02, af_increment=0.02, af_max=0.2):
     df = pd.DataFrame(data)
 

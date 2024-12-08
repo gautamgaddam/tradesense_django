@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+#OBV
 def calculate(data):
     df = pd.DataFrame(data)
     df['direction'] = df['close'].diff().apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))

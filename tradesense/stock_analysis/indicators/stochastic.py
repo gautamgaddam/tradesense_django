@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+#Stochastic
 def calculate(data, period=14, k_period=3, d_period=3):
     df = pd.DataFrame(data)
     df['low_min'] = df['low'].rolling(window=period).min()
